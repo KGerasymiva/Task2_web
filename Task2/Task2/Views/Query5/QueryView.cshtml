@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Html
+@model Task2.Models.Query5Model
+
+@{
+	ViewData["Title"] = "QueryView";
+	
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+
+	<div class="container">
+		<h2>User's Post Info </h2>
+		<table class="table table-bordered table-striped table-hover">
+
+			<tr>
+				<td>User Name</td>
+				<td>@Html.DisplayFor(model => model.User.Name)</td>
+			</tr>
+			<tr>
+				<td>Last Post</td>
+				<td>@Html.DisplayFor(model => model.LastPost.Title)</td>
+			</tr>
+			<tr>
+				<td>Last Post Comments Count</td>
+				<td>@Html.DisplayFor(model => model.LastPostCommentCount)</td>
+			</tr>
+			<tr>
+				<td>Undone Tasks Count</td>
+				<td>@Html.DisplayFor(model => model.UndoneTasksCount)</td>
+			</tr>
+			<tr>
+				<td>The Populest Post By Comments</td>
+				<td>@Html.DisplayFor(model => model.PopPostByComments.Title)</td>
+			</tr>
+			<tr>
+				<td>The Populest Post By Likes</td>
+				@if (Model.PopPostByLikes != null)
+				{
+					<td>@Html.ActionLink(Model.PopPostByLikes.Title, "ShowPost/" + Model.PopPostByLikes.Id, "ShowPost")</td>
+				}
+				else
+				{
+					<td></td>
+				}
+			</tr>
+
+		</table>
+	</div>
+
+</div>

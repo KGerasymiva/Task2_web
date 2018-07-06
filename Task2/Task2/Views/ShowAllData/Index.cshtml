@@ -1,0 +1,159 @@
+﻿@model IEnumerable<Task2.Models.User>
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>ALL DATA</h2>
+
+@*<p>
+		<a asp-action="Create">Create New</a>
+	</p>*@
+<div class="container">
+
+	<div class="row" id="head">
+		<div class="col-md-1">
+			User id
+		</div>
+		<div class="col-md-1">
+			Created At
+		</div>
+		<div class="col-md-2">
+			User Name
+		</div>
+		<div class="col-md-2">
+			Avatar
+		</div>
+		<div class="col-md-3">
+			e-mail
+		</div>
+		<div class="col-md-1">
+			Todos
+		</div>
+		<div class="col-md-1">
+			Posts
+		</div>
+		<div class="col-md-1">
+			Comments
+		</div>
+
+	</div>
+
+	@{ int i = 0; }
+	@foreach (var item in Model)
+	{
+		<div class="row">
+			<div class="col-md-1">
+				@Html.DisplayFor(modelItem => item.Id)
+			</div>
+			<div class="col-md-1">
+				@Html.DisplayFor(modelItem => item.CreatedAt)
+			</div>
+			<div class="col-md-2">
+				@Html.DisplayFor(modelItem => item.Name)
+			</div>
+			<div class="col-md-2">
+				<img src="@item.Avatar">
+			</div>
+			<div class="col-md-3">
+				@Html.DisplayFor(modelItem => item.EMail)
+			</div>
+			<div class="col-md-1" data-toggle="collapse" data-target="#todo_@i">
+				<a>@item.Todos.Count()</a>
+			</div>
+			<div class="col-md-1" data-toggle="collapse" data-target="#post_@i">
+				<a>@item.Posts.Count()</a>
+			</div>
+			<div class="col-md-1" data-toggle="collapse" data-target="#comment_@i">
+				<a>@item.Comments.Count()</a>
+			</div>
+
+		</div>
+
+
+		<div class="collapse" id="todo_@i">
+			<table class="table table-bordered table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Todo Id</th>
+						<th>Todo Name</th>
+						<th>Created at</th>
+						<th>Is complete</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var x in item.Todos)
+					{
+						<tr>
+							<td>@x.Id</td>
+							<td>@x.Name</td>
+							<td>@x.CreatedAt</td>
+							<td>@x.IsComplete</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+
+		<div class="collapse" id="post_@i">
+			<table class="table table-bordered table-striped table-hover ">
+				<thead>
+					<tr>
+						<th>Post Id</th>
+						<th>Post Title</th>
+						<th>Post Body</th>
+						<th>Created at</th>
+						<th>Comments count</th>
+						<th>Likes</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var x in item.Posts)
+					{
+						<tr>
+							<td>@x.Id</td>
+							<td>@x.Title</td>
+							<td>@x.Body</td>
+							<td>@x.CreatedAt</td>
+							<td>@x.Comments.Count()</td>
+							<td>@x.Likes</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+
+
+		<div class="collapse" id="comment_@i">
+			<table class="table table-bordered table-striped table-hover ">
+				<thead>
+					<tr>
+						<th>Comment Id</th>
+						<th>Comment Body</th>
+						<th>Created at</th>
+						<th>Likes</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var x in item.Comments)
+					{
+						<tr>
+							<td>@x.Id</td>
+							<td>@x.Body</td>
+							<td>@x.CreatedAt</td>
+							<td>@x.Likes</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+
+
+		i = i + 1;
+
+	}
+
+</div>

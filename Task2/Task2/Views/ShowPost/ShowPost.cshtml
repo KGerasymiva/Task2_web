@@ -1,0 +1,46 @@
+﻿@model Task2.Models.Post
+
+@{
+    ViewData["Title"] = "ShowPost";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ShowPost</h2>
+
+<div class="container">
+	<h2>Post info</h2>
+	<p>The .table-bordered class adds borders to a table:</p>            
+	<table class="table table-bordered table-striped table-hover">
+		<thead>
+		<tr>
+			<th>Id</th>
+			<th>Created at</th>
+			<th>Title</th>
+			<th>Body</th>
+			<th>User Id</th>
+			<th>Likes</th>
+			<th>Comments</th>
+		</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>@Html.DisplayFor(model => model.Id)</td>
+				<td>@Html.DisplayFor(model => model.CreatedAt)</td>
+				<td>@Html.DisplayFor(model => model.Title)</td>
+				<td>@Html.DisplayFor(model => model.Body)</td>
+				<td>@Html.DisplayFor(model => model.UserId)</td>
+				<td>@Html.DisplayFor(model => model.Likes)</td>
+				<td>@Model.Comments.Count()</td>
+
+
+
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,39 @@
+﻿@model Task2.Models.Todo
+
+@{
+    ViewData["Title"] = "ShowTodo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ShowTodo</h2>
+
+<div class="container">
+	<h2>Todo info</h2>
+	        
+	<table class="table table-bordered table-striped table-hover" >
+		<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>User Id</th>
+			<th>Created at</th>
+			<th>Is complete</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td> @Html.DisplayFor(model => model.Id)</td>
+			<td>@Html.DisplayFor(model => model.Name)</td>
+			<td>@Html.DisplayFor(model => model.UserId)</td>
+			<td>@Html.DisplayFor(model => model.CreatedAt)</td>
+			<td>@Html.DisplayFor(model => model.IsComplete)</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+
+
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

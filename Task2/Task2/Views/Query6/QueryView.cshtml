@@ -1,0 +1,42 @@
+﻿@model Task2.Models.Query6Model
+
+@{
+    ViewData["Title"] = "QueryView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+
+	<div class="container">
+		<h2>User's Post Info </h2>
+		<table class="table table-bordered table-striped table-hover">
+
+			<tr>
+				<td>Post Title</td>
+				<td>@Html.DisplayFor(model => model.Post.Title)</td>
+			</tr>
+			<tr>
+				<td>Longest Post's Comment</td>
+				<td>@Html.DisplayFor(model => model.LongestComment.Body)</td>
+			</tr>
+			<tr>
+				<td>Likest Post's Comment</td>
+				<td>@Html.DisplayFor(model => model.LikestComment.Body)</td>
+			</tr>
+			<tr>
+				<td>Post's Likes Count</td>
+				<td>@Html.DisplayFor(model => model.LikesCount)</td>
+			</tr>
+			
+		</table>
+	</div>
+
+</div>
+
+<h2>QueryView</h2>
+
+
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

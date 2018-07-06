@@ -1,0 +1,53 @@
+﻿@model Task2.Models.Query1Model
+
+@{
+	ViewData["Title"] = "QueryView";
+	var id = ViewBag.Id;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>QueryView</h2>
+
+<div>
+	<h4>Query1Model</h4>
+	<hr />
+	<dl class="dl-horizontal"></dl>
+</div>
+
+<div>
+	<h2>User id = @id</h2>
+
+	<div class="container">
+		<h2>Post info</h2>
+		<p>The .table-bordered class adds borders to a table:</p>
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Post Title</th>
+					<th>Comments Count</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				@foreach (var tuple in Model.Query1)
+				{
+					<tr>
+						<td>@tuple.Item1.Title</td>
+						<td>@tuple.Item2</td>
+					</tr>
+				}
+
+
+
+
+
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+<div>
+	@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+	<a asp-action="Index">Back to List</a>
+</div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Task2</title>
+    <title>@ViewData["Title"] - DATABASE</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -29,11 +29,17 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Task2</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
+				<ul class="nav navbar-nav">
+					<li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+					<li><a asp-area="" asp-controller="Query1" asp-action="Index">Query1</a></li>
+					<li><a asp-area="" asp-controller="Query2" asp-action="Index">Query2</a></li>
+					<li><a asp-area="" asp-controller="Query3" asp-action="Index">Query3</a></li>
+					<li><a asp-area="" asp-controller="Query4" asp-action="Index">Query4</a></li>
+					<li><a asp-area="" asp-controller="Query5" asp-action="Index">Query5</a></li>
+					<li><a asp-area="" asp-controller="Query6" asp-action="Index">Query6</a></li>
+					<li><a asp-area="" asp-controller="ShowAllData" asp-action="Index">Query All Data</a></li>
+
+				</ul>
             </div>
         </div>
     </nav>
@@ -41,7 +47,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - Task2</p>
+            <p>&copy; 2018 - Database</p>
         </footer>
     </div>
 

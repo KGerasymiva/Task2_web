@@ -13,6 +13,7 @@ namespace Task2.Models
         public string Avatar { get; set; }
         public string EMail { get; set; }
         public IEnumerable<Post> Posts { get; set; } = new List<Post>();
+        public IEnumerable<Comment> Comments { get; set; } = new List<Comment>();
         public IEnumerable<Todo> Todos { get; set; } = new List<Todo>();
 
     }

@@ -8,12 +8,13 @@ using Task2.Models;
 
 namespace Task2.NewFolder
 {
-    public class ServiceData
+    public static class ServiceData
     {
         public static List<User> Users { get; set; }
         public static List<Post> Posts { get; set; }
         public static List<Comment> Comments { get; set; }
         public static List<Todo> Todos { get; set; }
+        
 
         static HttpClient client = new HttpClient();
 
@@ -32,6 +33,12 @@ namespace Task2.NewFolder
 
         public static async Task<bool> GetAllDataAsync()
         {
+            // Update port # in the following line.
+            client.BaseAddress = new Uri("https://5b128555d50a5c0014ef1204.mockapi.io/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+
             Users = await GetAllDataAsync<User>("users");
             Posts = await GetAllDataAsync<Post>("posts");
             Comments = await GetAllDataAsync<Comment>("comments");
@@ -52,96 +59,107 @@ namespace Task2.NewFolder
                 t => t.UserId,
                 (u, collection) => u.Todos = collection.ToList()).ToList();
 
+            var commentsUserList = Users.GroupJoin(Comments,
+                u => u.Id,
+                c => c.UserId,
+                (u, collection) => u.Comments = collection.ToList()).ToList();
             return true;
         }
 
-        public static async Task GetCommentCountAsync(int id) //1
+        public static Query1Model GetCommentCount(int id) //1
         {
-            await GetAllDataAsync();
+
             var query = Users
                 .Where(x => x.Id == id)
                 .Select(y => y.Posts)
                 .FirstOrDefault()
-                ?.Select(z => (Post: z, CommentsCount: z.Comments.Count()));
+                ?.Select(z => (Tuple.Create(z, z.Comments.Count()))).ToList(); //Post, CommentsCount
 
-            foreach (var item in query)
+
+            //if  
+            return new Query1Model()
             {
-                Console.WriteLine($"Post with title:\"{item.Post.Title}\" has {item.CommentsCount} comment(s)");
-            }
+                Query1 = query
+            };
+
+
         }
 
-        public static async Task GetCommentList50Async(int id)  //2
+        public static List<Comment> GetCommentList50(int id)  //2
         {
-            await GetAllDataAsync();
+           
             var query = Users
                 .Where(x => x.Id == id)
                 .Select(y => y.Posts)
                 .FirstOrDefault();
             var enumerable = query as Post[] ?? query?.ToArray();
-            enumerable?.Select(c => c.Comments)
+            var query1=enumerable?.Select(c => c.Comments)
             .FirstOrDefault()
-            ?.Where(z => z.Body.Length < 50);
+            ?.Where(z => z.Body.Length < 50).ToList();
+
+
 
             if (enumerable != null && enumerable.Any())
             {
-                Console.WriteLine($"User with id {id} has comments:");
+                return query1;
+                // return new Query2Model() {Query2 = query1};
+                //Console.WriteLine($"UserList with id {id} has comments:");
 
-                foreach (var item in enumerable)
-                {
-                    Console.WriteLine($"Comment id: {item.Id} Comment Body:\"{item.Body}\"");
-                }
+                //foreach (var item in enumerable)
+                //{
+                //    Console.WriteLine($"Comment id: {item.Id} Comment Body:\"{item.Body}\"");
+                //}
             }
 
-
+            return null;
         }
 
-        public static async Task GetTodoListAsync(int id)  //3
+        public static List<Todo> GetTodoList(int id)  //3
         {
-            await GetAllDataAsync();
+          
             var query = Users
                 .Where(x => x.Id == id)
                 .Select(y => y.Todos)
                 .FirstOrDefault()
                 ?.Where(z => z.IsComplete)
-                .Select(res => (Id: res.Id, Name: res.Name));
+                .ToList();
 
-            foreach (var item in query)
-            {
-                Console.WriteLine($"id: {item.Id} - Name:{item.Name}");
-            }
+            return query;
 
         }
 
-        public static async Task GetUserTodoListAsync() //4
+        public static Query4Model GetUserTodoList() //4
         {
-            await GetAllDataAsync();
+            //await GetAllDataAsync();
             var query = Users
                 .Join
                 (Users,
                     u => u.Id,
                     t => t.Id,
                     (u, t) =>
-                        (Name: u.Name, List: t.Todos.OrderByDescending(x => x.Name.Length).Select(z => z.ToString())
+                        Tuple.Create(u, (t.Todos.OrderByDescending(x => x.Name.Length).ToList())
                         ))
-                .OrderBy(y => y.Name);
+                .OrderBy(y => y.Item1.Name).ToList();
 
-            foreach (var item in query)
-            {
-                Console.WriteLine($"{item.Name} ");
-                foreach (var y in item.List)
-                {
-                    Console.WriteLine($"{y}");
-                }
+            return new Query4Model() {TodoList = query};
 
-                Console.WriteLine();
-            }
+            //foreach (var item in query)
+            //{
+            //    Console.WriteLine($"{item.Name} ");
+            //    foreach (var y in item.List)
+            //    {
+            //        Console.WriteLine($"{y}");
+            //    }
+
+            //    Console.WriteLine();
+            //}
 
         }
 
 
-        public static async Task GetUserInfo5Async(int id)
+        public static Query5Model GetUserInfo5(int id)
         {
-            await GetAllDataAsync();
+            
 
             var user = Users //5.1
                 .FirstOrDefault(x => x.Id == id);
@@ -187,15 +205,23 @@ namespace Task2.NewFolder
                 .FirstOrDefault()
                 ?.OrderBy(z => z.Likes).LastOrDefault();
 
-            Console.WriteLine($"User Id:{user?.Name} \n last post title: {lastPost?.Title}\n comments count:{countLastPost}\n undone tasks count:{undoneTasks}\n popular post by comments: {popPost80?.Id}\n popular post by likes: {popPostLikes?.Id}");
+            return new Query5Model()
+            {
+                User =user,
+                LastPost = lastPost,
+                LastPostCommentCount = countLastPost,
+                UndoneTasksCount = undoneTasks,
+                PopPostByComments = popPost80,
+                PopPostByLikes = popPostLikes
+
+            };
+  
         }
 
 
-        public static async Task GetPostInfo6Async(int postId)  //6
+        public static Query6Model GetPostInfo6(int postId)  //6
         {
-            await GetAllDataAsync();
-
-            var post = Posts
+           var post = Posts
                 .FirstOrDefault(x => x.Id == postId);
 
             var longComment = Posts
@@ -218,34 +244,43 @@ namespace Task2.NewFolder
                 .Where(z => (z.Likes == 0) || (z.Body.Length < 80))
                 .Count();
 
-            Console.WriteLine($"post.Id: {post?.Id}\n the longest comment id: {longComment?.Id}\n the likest comment id: {likeComment?.Id}\n Comments count: {countComment}");
-
-        }
-       
-       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-       public static void MainStart()
-        {
-            RunAsync().GetAwaiter().GetResult();
-        }
-
-        static async Task RunAsync()
-        {
-            // Update port # in the following line.
-            client.BaseAddress = new Uri("https://5b128555d50a5c0014ef1204.mockapi.io/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-
-            try
+            return new Query6Model()
             {
-                await GetAllDataAsync();
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+                Post = post,
+                LongestComment = longComment,
+                LikestComment = likeComment,
+                LikesCount = countComment
+            };
         }
+
+
+        public static List<User> GetAllData()
+        {
+           // return new UsersListModelcs() {UserList = Users};
+            return Users;
+        }
+
+        public static Todo GetTodoById(int id)
+        {
+            return Todos.FirstOrDefault(x => x.Id.Equals(id));
+        }
+
+        public static User GetUserById(int id)
+        {
+            return Users.FirstOrDefault(x => x.Id.Equals(id));
+        }
+
+        public static Post GetPostById(int id)
+        {
+            return Posts.FirstOrDefault(x => x.Id.Equals(id));
+        }
+
+        public static Comment GetCommentById(int id)
+        {
+            return Comments.FirstOrDefault(x => x.Id.Equals(id));
+        }
+
+
     }
 
 

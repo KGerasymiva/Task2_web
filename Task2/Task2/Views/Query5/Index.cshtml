@@ -1,0 +1,29 @@
+﻿@{
+	var count=ViewBag.Count;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Query5</h2>
+
+@using (Html.BeginForm("Index", "Query5", FormMethod.Post,
+	new { enctype = "multipart/form-data" }))
+{
+	@Html.ValidationSummary(true)
+	<fieldset>
+		<div class="form-group col-md-2">
+			<label for="sel1">Select user id:</label>
+			<div>
+				<select class="form-control" id="id" name="id">
+					@foreach (var id in Enumerable.Range(1, count))
+					{
+						<option>@id</option>
+					}
+
+				</select>
+				<br>
+				<input type="submit" value="Submit" />
+			</div>
+			
+		</div>
+	</fieldset>
+}

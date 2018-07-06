@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Task2.Models.Comment>
+
+@{
+	ViewData["Title"] = "QueryView";
+	var id = ViewBag.Id;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div>
+	<h2>User id = @id</h2>
+	<div class="container">
+		<h2>Comments List</h2>
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+			<tr>
+				<th>Comment Id</th>
+				<th>Comment Body</th>
+			</tr>
+			</thead>
+			<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@item.Id</td>
+					<td>@item.Body</td>
+				</tr>
+			}
+			</tbody>
+		</table>
+	</div>
+
+</div>

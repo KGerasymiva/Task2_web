@@ -15,7 +15,7 @@ namespace Task2
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
+            ServiceData.GetAllDataAsync().GetAwaiter().GetResult();
         }
 
         public IConfiguration Configuration { get; }

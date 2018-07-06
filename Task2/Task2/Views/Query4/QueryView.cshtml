@@ -1,0 +1,64 @@
+﻿@model Task2.Models.Query4Model
+
+@{
+	ViewData["Title"] = "QueryView";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>Query</h2>*@
+
+@*<div>
+		<h4>Query4Model</h4>
+		<hr />
+		<dl class="dl-horizontal">
+		</dl>
+	</div>
+
+	<div>
+		@foreach (var tuple in Model.TodoList)
+		{
+			<p>@tuple.Item1.Name</p>
+			foreach (var todo in tuple.Item2)
+			{
+				<p>@todo.Name</p>
+			}
+		}
+	</div>*@
+
+<div>
+
+	<div class="container">
+		<h2>Users Todo list</h2>
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th>User Name</th>
+					<th>Todo Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				@if (Model != null)
+				{
+					foreach (var item in Model.TodoList)
+					{
+						<tr>
+							<td>@item.Item1.Name</td>
+							<td>
+								<ul>
+									@foreach (var todo in item.Item2)
+									{
+										<li>@todo.Name</li>
+									}
+							</ul>
+						</td>
+					</tr>
+				}
+
+			}
+
+			</tbody>
+		</table>
+	</div>
+
+</div>
+

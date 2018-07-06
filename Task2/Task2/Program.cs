@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Task2.NewFolder;
 
 namespace Task2
 {
@@ -15,6 +16,7 @@ namespace Task2
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
+            //Task.Run(() => { ServiceData.GetAllDataAsync();});
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
