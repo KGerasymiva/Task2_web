@@ -1,0 +1,11 @@
+E:\BSA2018\Task2_Web\Task2\Task2\bin\Debug\netcoreapp2.0\Task2.deps.json
+E:\BSA2018\Task2_Web\Task2\Task2\bin\Debug\netcoreapp2.0\Task2.runtimeconfig.json
+E:\BSA2018\Task2_Web\Task2\Task2\bin\Debug\netcoreapp2.0\Task2.runtimeconfig.dev.json
+E:\BSA2018\Task2_Web\Task2\Task2\bin\Debug\netcoreapp2.0\Task2.dll
+E:\BSA2018\Task2_Web\Task2\Task2\bin\Debug\netcoreapp2.0\Task2.pdb
+E:\BSA2018\Task2_Web\Task2\Task2\obj\Debug\netcoreapp2.0\Task2.csprojResolveAssemblyReference.cache
+E:\BSA2018\Task2_Web\Task2\Task2\obj\Debug\netcoreapp2.0\Task2.csproj.CoreCompileInputs.cache
+E:\BSA2018\Task2_Web\Task2\Task2\obj\Debug\netcoreapp2.0\Task2.AssemblyInfoInputs.cache
+E:\BSA2018\Task2_Web\Task2\Task2\obj\Debug\netcoreapp2.0\Task2.AssemblyInfo.cs
+E:\BSA2018\Task2_Web\Task2\Task2\obj\Debug\netcoreapp2.0\Task2.dll
+E:\BSA2018\Task2_Web\Task2\Task2\obj\Debug\netcoreapp2.0\Task2.pdb
