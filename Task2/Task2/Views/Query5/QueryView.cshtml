@@ -21,7 +21,7 @@
 			<tr>
 				<td>User Name</td>
 
-				if (Model.User != null)
+				@if (Model.User != null)
 				{
 				<td>@Html.ActionLink(@Model.User.Name, "ShowUser/" + @Model.User.Id, "ShowUser", null, new { target = "_blank" })</td>
 				}
@@ -52,7 +52,7 @@
 			<tr>
 				<td>The Populest Post By Comments</td>
 			
-				@if (Model.PopPostByLikes != null)
+				@if (Model.PopPostByComments != null)
 				{
 					<td>@Html.ActionLink(Model.PopPostByComments.Title, "ShowPost/" + Model.PopPostByComments.Id, "ShowPost", null, new { target = "_blank" })</td>
 				}

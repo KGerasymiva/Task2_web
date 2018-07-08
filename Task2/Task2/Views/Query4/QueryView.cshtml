@@ -26,37 +26,40 @@
 				{
 					foreach (var item in Model.TodoList)
 					{
-				<tr>
-					
-					if (@item.Item1 != null)
-					{
-					<td>@Html.ActionLink(@item.Item1.Name, "ShowUser/" + @item.Item1.Id, "ShowUser", null, new { target = "_blank" })</td>
-					}
-					else
-					{
-					<td></td>
-					}
-					<td>
-						<ul>
-							@foreach (var todo in item.Item2)
-			{
-				<li>
-					if (@todo != null)
-					{
-				<td>@Html.ActionLink(@todo.Name, "ShowTodo/" + @todo.Id, "ShowTodo", null, new { target = "_blank" })</td>
-				}
-				else
-				{
-				<td></td>
-				}
-				</li>
-}
-							</ul>
-							</td>
-						</tr>
-					}
+						<tr>
 
-				}
+							@if (item.Item1 != null)
+							{
+								<td>@Html.ActionLink(item.Item1.Name, "ShowUser/" + item.Item1.Id, "ShowUser", null, new { target = "_blank" })</td>
+							}
+							else
+							{
+								<td></td>
+							}
+
+							<td>
+								<ul>
+									@foreach (var todo in item.Item2)
+									{
+										
+											if (todo != null)
+											{
+									<li>
+										@Html.ActionLink(todo.Name, "ShowTodo/" + todo.Id, "ShowTodo", null, new { target = "_blank" }) </li>
+}
+											else
+											{
+
+											}
+											
+										}
+									</ul>
+									</td>
+
+								</tr>
+							}
+
+						}
 
 			</tbody>
 		</table>
