@@ -3,23 +3,43 @@
 
 @{
 	ViewData["Title"] = "QueryView";
-	
+	var id = ViewBag.Id;
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div>
+	<h2>Query5</h2>
+	<hr />
+	<dl class="dl-horizontal"></dl>
+</div>
 
+<div>
 	<div class="container">
-		<h2>User's Post Info </h2>
+		<h2>User's Post Info (User id=@id)</h2>
 		<table class="table table-bordered table-striped table-hover">
 
 			<tr>
 				<td>User Name</td>
-				<td>@Html.DisplayFor(model => model.User.Name)</td>
+
+				if (Model.User != null)
+				{
+				<td>@Html.ActionLink(@Model.User.Name, "ShowUser/" + @Model.User.Id, "ShowUser", null, new { target = "_blank" })</td>
+				}
+				else
+				{
+				<td></td>
+				}
 			</tr>
 			<tr>
 				<td>Last Post</td>
-				<td>@Html.DisplayFor(model => model.LastPost.Title)</td>
+				@if (Model.PopPostByLikes != null)
+				{
+					<td>@Html.ActionLink(Model.LastPost.Title, "ShowPost/" + Model.LastPost.Id, "ShowPost", null, new { target = "_blank" })</td>
+				}
+				else
+				{
+					<td></td>
+				}
 			</tr>
 			<tr>
 				<td>Last Post Comments Count</td>
@@ -31,13 +51,21 @@
 			</tr>
 			<tr>
 				<td>The Populest Post By Comments</td>
-				<td>@Html.DisplayFor(model => model.PopPostByComments.Title)</td>
+			
+				@if (Model.PopPostByLikes != null)
+				{
+					<td>@Html.ActionLink(Model.PopPostByComments.Title, "ShowPost/" + Model.PopPostByComments.Id, "ShowPost", null, new { target = "_blank" })</td>
+				}
+				else
+				{
+					<td></td>
+				}
 			</tr>
 			<tr>
 				<td>The Populest Post By Likes</td>
 				@if (Model.PopPostByLikes != null)
 				{
-					<td>@Html.ActionLink(Model.PopPostByLikes.Title, "ShowPost/" + Model.PopPostByLikes.Id, "ShowPost")</td>
+					<td>@Html.ActionLink(Model.PopPostByLikes.Title, "ShowPost/" + Model.PopPostByLikes.Id, "ShowPost", null, new { target = "_blank" })</td>
 				}
 				else
 				{
@@ -48,4 +76,7 @@
 		</table>
 	</div>
 
+</div>
+<div>
+	<a asp-action="Index">Back</a>
 </div>

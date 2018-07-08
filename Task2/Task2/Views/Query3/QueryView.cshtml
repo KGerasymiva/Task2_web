@@ -6,16 +6,15 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>QueryView</h2>
 <div>
-	<h4>QQQ</h4>
+	<h2>Query3</h2>
 	<hr />
 	<dl class="dl-horizontal"></dl>
 </div>
+
 <div>
-	<h2>User id = @id</h2>
 	<div class="container">
-		<h2>Comments list</h2>
+		<h2>Comments list (User id=@id)</h2>
 		<p>The .table-bordered class adds borders to a table:</p>
 		<table class="table table-bordered table-striped table-hover">
 			<thead>
@@ -25,13 +24,21 @@
 				</tr>
 			</thead>
 			<tbody>
-				@if (Model.Count()!=0)
+				@if (Model.Count() != 0)
 				{
 					foreach (var item in Model)
 					{
 						<tr>
 							<td>@item.Id</td>
-							<td>@item.Name</td>
+							@if (@item != null)
+							{
+								<td>@Html.ActionLink(@item.Name, "ShowTodo/" + @item.Id, "ShowTodo", null, new { target = "_blank" })</td>
+							}
+							else
+							{
+								<td></td>
+							}
+
 						</tr>
 					}
 				}
@@ -42,6 +49,5 @@
 </div>
 
 <div>
-	@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-	<a asp-action="Index">Back to List</a>
+	<a asp-action="Index">Back</a>
 </div>

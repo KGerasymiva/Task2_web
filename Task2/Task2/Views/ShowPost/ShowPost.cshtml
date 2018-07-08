@@ -5,7 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ShowPost</h2>
+<div>
+	<h2>Show Post Info</h2>
+	<hr />
+	<dl class="dl-horizontal"></dl>
+</div>
+
 
 <div class="container">
 	<h2>Post info</h2>
@@ -32,15 +37,10 @@
 				<td>@Html.DisplayFor(model => model.Likes)</td>
 				<td>@Model.Comments.Count()</td>
 
-
-
 			</tr>
 		</tbody>
 	</table>
 </div>
 
 
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+

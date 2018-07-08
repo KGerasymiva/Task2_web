@@ -5,7 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ShowUser</h2>
+<div>
+	<h2>Show User Info</h2>
+	<hr />
+	<dl class="dl-horizontal"></dl>
+</div>
 
 <div class="container">
 	<h2>User info</h2>
@@ -41,7 +45,4 @@
 	</table>
 </div>
 
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+

@@ -8,10 +8,15 @@
 
 
 
+<<div>
+	<h2>Query2</h2>
+	<hr />
+	<dl class="dl-horizontal"></dl>
+</div>
+
 <div>
-	<h2>User id = @id</h2>
 	<div class="container">
-		<h2>Comments List</h2>
+		<h2>Comments list (User id = @id)</h2>
 		<table class="table table-bordered table-striped table-hover">
 			<thead>
 			<tr>
@@ -20,15 +25,21 @@
 			</tr>
 			</thead>
 			<tbody>
-			@foreach (var item in Model)
+			@if (Model != null)
 			{
-				<tr>
-					<td>@item.Id</td>
-					<td>@item.Body</td>
-				</tr>
+				foreach (var item in Model)
+				{
+					<tr>
+						<td>@item.Id</td>
+						<td>@item.Body</td>
+					</tr>
+				}
 			}
 			</tbody>
 		</table>
 	</div>
 
+</div>
+<div>
+	<a asp-action="Index">Back</a>
 </div>
